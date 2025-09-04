@@ -35,6 +35,12 @@ let total = 0;
   return `Total: €${total.toFixed(2)}`;
 }
 
+//   Additional challenge: These lines go through all the keys in the object and add their values to total.
+//   Another way is to use
+//.  function calculateTotalPrice(object) {
+//   let total = Object.values(object).reduce((sum, val) => sum + val, 0);
+//   return `Total: €${total.toFixed(2)}`;
+// }
 
 // ! Test functions (plain vanilla JavaScript)
 function test1() {
