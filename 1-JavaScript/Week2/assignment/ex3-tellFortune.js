@@ -46,25 +46,25 @@ export function tellFortune(kids, partners, places, jobs) {
 }
 
 function main() {
-  const kids = [
+  const numKids = [
     1, 2, 3, 4, 5
   ];
 
-  const partners = [
+  const partnerNames = [
     "Anna", "Dasha", "Vlad", "Kostya", "Oleg"
   ];
 
-  const places = [
+  const locations = [
     "Rivne", "Kyiv", "Odessa", "Ternopil", "Dnipro"
   ];
 
-  const jobs = [
+  const jobTitles = [
     "Frontend Developer", "Backend Developer", "Designer", "Tester", "Manager"
   ];
 
-  console.log(tellFortune(kids, partners, places, jobs));
-  console.log(tellFortune(kids, partners, places, jobs));
-  console.log(tellFortune(kids, partners, places, jobs));
+  console.log(tellFortune(numKids, partnerNames, locations, jobTitles));
+  console.log(tellFortune(numKids, partnerNames, locations, jobTitles));
+  console.log(tellFortune(numKids, partnerNames, locations, jobTitles));
 }
 
 // ! Do not change or remove the code below
