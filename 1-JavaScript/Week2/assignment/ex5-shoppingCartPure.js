@@ -18,7 +18,7 @@ it pure. Do the following:
 function addToShoppingCart(items, itemToAdd) {
   let newMyCart = [...items, itemToAdd];
   if (newMyCart.length > 3) {
-    newMyCart = newMyCart.slice(1);
+    newMyCart = newMyCart.slice(-3);
   }
 
   return newMyCart;
