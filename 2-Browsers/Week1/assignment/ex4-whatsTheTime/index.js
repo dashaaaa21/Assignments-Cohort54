@@ -31,6 +31,12 @@ function addCurrentTime() {
 }
 
 window.addEventListener('load', () => {
+  const p = document.createElement("p");
+  p.textContent = "The current time is: ";
+  const span = document.createElement("span");
+  span.id = "time";
+  p.appendChild(span);
+  document.body.appendChild(p);
   addCurrentTime();
   setInterval(addCurrentTime, 1000);
 });
