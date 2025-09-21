@@ -55,17 +55,7 @@ function catWalk() {
       dancedThisLap = false;
     }
   }
-
-  function startWhenReady() {
-    if (img.complete && img.naturalWidth > 0) {
-      timer = setInterval(step, 50);
-    } else {
-      img.addEventListener('load', () => {
-        timer = setInterval(step, 50);
-      }, { once: true });
-    }
-  }
-  startWhenReady();
+  timer = setInterval(step, 50);
 }
 
-window.addEventListener('DOMContentLoaded', catWalk);
+window.addEventListener('load', catWalk);
