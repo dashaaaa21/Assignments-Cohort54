@@ -27,9 +27,9 @@ exercise file.
 import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
-  // TODO Refactor this function
   const dice = [1, 2, 3, 4, 5];
-  return rollDie(1);
+  const dicePromises = dice.map((num) => rollDie());
+  return Promise.all(dicePromises);
 }
 
 function main() {
@@ -43,4 +43,7 @@ if (process.env.NODE_ENV !== 'test') {
   main();
 }
 
-// TODO Replace this comment by your explanation that was asked for in the assignment description.
+// Promise.all() - this is like throws all five dice at the same time.
+// If one die falls off the table, it rejects right away.
+// The other dice keep rolling because they already started
+// and JavaScript cannot stop them.
