@@ -28,7 +28,7 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
   const dice = [1, 2, 3, 4, 5];
-  const dicePromises = dice.map((num) => rollDie());
+  const dicePromises = dice.map(() => rollDie());
   return Promise.all(dicePromises);
 }
 

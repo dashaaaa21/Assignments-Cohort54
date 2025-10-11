@@ -17,23 +17,16 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
 export function rollDice() {
   const results = [];
 
+  const pushResult = (dieNumber) => (value) => {
+    results.push(value);
+    return rollDie(dieNumber);
+  };
+
   return rollDie(1)
-    .then((value) => {
-      results.push(value);
-      return rollDie(2);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(3);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(4);
-    })
-    .then((value) => {
-      results.push(value);
-      return rollDie(5);
-    })
+    .then(pushResult(2))
+    .then(pushResult(3))
+    .then(pushResult(4))
+    .then(pushResult(5))
     .then((value) => {
       results.push(value);
       return results;
