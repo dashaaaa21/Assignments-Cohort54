@@ -27,13 +27,31 @@ function addTableRow(table, label, value) {
 }
 
 function renderLaureate(ul, { knownName, birth, death }) {
+  console.log('Rendering laureate:', knownName.en);
   const li = createAndAppend('li', ul);
   const table = createAndAppend('table', li);
   addTableRow(table, 'Name', knownName.en);
-  addTableRow(table, 'Birth', `${birth.date}, ${birth.place.locationString}`);
-  addTableRow(table, 'Death', `${death.date}, ${death.place.locationString}`);
+  if (birth) {
+    addTableRow(
+      table,
+      'Birth',
+      `${birth?.date || 'Unknown'}, ${birth?.place?.locationString || 'Unknown'}`
+    );
+  } else {
+    addTableRow(table, 'Birth', 'Unknown');
+    console.warn(`${knownName.en} has no birth data`);
+  }
+  if (death) {
+    addTableRow(
+      table,
+      'Death',
+      `${death?.date || 'Unknown'}, ${death?.place?.locationString || 'Unknown'}`
+    );
+  } else {
+    addTableRow(table, 'Death', 'still alive');
+    console.warn(`${knownName.en} is still alive`);
+  }
 }
-
 function renderLaureates(laureates) {
   const ul = createAndAppend('ul', document.body);
   laureates.forEach((laureate) => renderLaureate(ul, laureate));
@@ -41,10 +59,17 @@ function renderLaureates(laureates) {
 
 async function fetchAndRender() {
   try {
-    const laureates = getData(
+    const data = await getData(
       'https://api.nobelprize.org/2.0/laureates?birthCountry=Netherlands&format=json&csvLang=en'
     );
-    renderLaureates(laureates);
+    console.log('Data received from API:', data);
+    if (!data.laureates || !Array.isArray(data.laureates)) {
+      throw new Error('No laureates found in the response');
+    }
+
+    console.log('Laureates array:', data.laureates);
+
+    renderLaureates(data.laureates);
   } catch (err) {
     console.error(`Something went wrong: ${err.message}`);
   }

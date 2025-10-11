@@ -14,21 +14,28 @@ import { DieFace, rollDie } from './pokerDiceRoller.js';
 /**
  * Rolls a die until the desired value is rolled.
  */
-export function rollDieUntil(desiredValue: DieFace): Promise<DieFace> {
-  return rollDie().then((value) => {
-    if (value !== desiredValue) {
-      return rollDieUntil(desiredValue);
+export async function rollDieUntil(desiredValue: DieFace): Promise<DieFace> {
+  let value: DieFace;
+  while (true) {
+    try {
+      value = await rollDie();
+      if (value === desiredValue) {
+        return value;
+      }
+    } catch (error) {
+      throw error;
     }
-    return value;
-  });
+  }
 }
 
-function main() {
-  rollDieUntil('ACE')
-    .then((results) => console.log('Resolved!', results))
-    .catch((error) => console.log('Rejected!', error.message));
+async function main() {
+  try {
+    const result = await rollDieUntil('ACE');
+    console.log('Resolved!', result);
+  } catch (error: any) {
+    console.log('Rejected!', error.message);
+  }
 }
-
 // ! Do not change or remove the code below
 if (process.env.NODE_ENV !== 'test') {
   main();

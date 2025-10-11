@@ -15,15 +15,17 @@ import { rollDie } from '../../helpers/pokerDiceRoller.js';
 
 export function rollDice() {
   const dice = [1, 2, 3, 4, 5];
-  // TODO complete this function; use Promise.race() and rollDie()
-  rollDie(1); // TODO placeholder: modify as appropriate
+  const diceRolls = dice.map(rollDie);
+  return Promise.race(diceRolls);
 }
-
 // Refactor this function to use async/await and try/catch
-function main() {
-  rollDice()
-    .then((results) => console.log('Resolved!', results))
-    .catch((error) => console.log('Rejected!', error.message));
+async function main() {
+  try {
+    const result = await rollDice();
+    console.log('resolved:', result);
+  } catch (error) {
+    console.error('rejected :', error.message);
+  }
 }
 
 // ! Do not change or remove the code below
@@ -31,4 +33,6 @@ if (process.env.NODE_ENV !== 'test') {
   main();
 }
 
-// TODO Replace this comment by your explanation that was asked for in the assignment description.
+// Even after Promise.race() returns the first result, the other dice keep rolling
+// because their promises are already running. Promise.race() only waits for the
+// first one to finish; it does not stop the rest.
